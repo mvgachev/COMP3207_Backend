@@ -24,22 +24,22 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             email = req_body.get('email')
             password = req_body.get('password')
 
-            if not email:
-                return func.HttpResponse(
-                    "Email is not provided.",
-                    status_code=400
-                )
-            else:
-                response = checkEmail(email)
-                if response is not None:
-                    return response
-            if not password:
-                return func.HttpResponse(
-                    "Password is not provided.",
-                    status_code=400
-                )
-            else:
-                return checkPassword(password, email)
+    if not email:
+        return func.HttpResponse(
+            "Email is not provided.",
+            status_code=400
+        )
+    else:
+        response = checkEmail(email)
+        if response is not None:
+            return response
+    if not password:
+        return func.HttpResponse(
+            "Password is not provided.",
+            status_code=400
+        )
+    else:
+        return checkPassword(password, email)
             
 
 def checkEmail(email):

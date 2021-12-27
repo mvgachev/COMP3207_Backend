@@ -23,7 +23,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 "Bad Request",
                 status_code=400
             )
-
         else:
             email = req_body.get('email')
             password = req_body.get('password')
@@ -33,60 +32,60 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             education = req_body.get('education')
             address = req_body.get('address')
 
-            if not email:
-                return func.HttpResponse(
-                    "Email is not provided.",
-                    status_code=400
-                )
-            else:
-                response = validateEmail(email)
-                if response is not None:
-                    return response
-            if not password:
-                return func.HttpResponse(
-                    "Password is not provided.",
-                    status_code=400
-                )
-            else:
-                response = validatePassword(password)
-                if response is not None:
-                    return response
-            if not firstName:
-                return func.HttpResponse(
-                    "First name is not provided.",
-                    status_code=400
-                )
-            else:
-                response = validateName(firstName)
-                if response is not None:
-                    return response
-            if not lastName:
-                return func.HttpResponse(
-                    "Last name is not provided.",
-                    status_code=400
-                )
-            else:
-                response = validateName(lastName)
-                if response is not None:
-                    return response
-            if not dateOfBirth:
-                return func.HttpResponse(
-                    "Date of birth is not provided.",
-                    status_code=400
-                )
-            ##TODO Validate date
-            if not education:
-                return func.HttpResponse(
-                    "Education is not provided.",
-                    status_code=400
-                )
-            if not address:
-                return func.HttpResponse(
-                    "Address is not provided.",
-                    status_code=400
-                )
+    if not email:
+        return func.HttpResponse(
+            "Email is not provided.",
+            status_code=400
+        )
+    else:
+        response = validateEmail(email)
+        if response is not None:
+            return response
+    if not password:
+        return func.HttpResponse(
+            "Password is not provided.",
+            status_code=400
+        )
+    else:
+        response = validatePassword(password)
+        if response is not None:
+            return response
+    if not firstName:
+        return func.HttpResponse(
+            "First name is not provided.",
+            status_code=400
+        )
+    else:
+        response = validateName(firstName)
+        if response is not None:
+            return response
+    if not lastName:
+        return func.HttpResponse(
+            "Last name is not provided.",
+            status_code=400
+        )
+    else:
+        response = validateName(lastName)
+        if response is not None:
+            return response
+    if not dateOfBirth:
+        return func.HttpResponse(
+            "Date of birth is not provided.",
+            status_code=400
+        )
+    ##TODO Validate date
+    if not education:
+        return func.HttpResponse(
+            "Education is not provided.",
+            status_code=400
+        )
+    if not address:
+        return func.HttpResponse(
+            "Address is not provided.",
+            status_code=400
+        )
 
-            return registerUser(email, firstName, lastName, dateOfBirth, education, address, password)
+    return registerUser(email, firstName, lastName, dateOfBirth, education, address, password)
             
                 
 
