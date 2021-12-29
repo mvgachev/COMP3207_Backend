@@ -14,8 +14,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     dateOfBirth = req.params.get('dateOfBirth')
     education = req.params.get('education')
     address = req.params.get('address')
+    gender = req.params.get('gender')
 
-    if not (email and password and firstName and lastName and dateOfBirth and education and address):
+    if not (email and password and firstName and lastName and dateOfBirth and education and address and gender):
         try:
             req_body = req.get_json()
         except ValueError:
@@ -31,6 +32,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             dateOfBirth = req_body.get('dateOfBirth')
             education = req_body.get('education')
             address = req_body.get('address')
+            gender = req_body.get('gender')
 
     if not email:
         return func.HttpResponse(
@@ -84,11 +86,27 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             "Address is not provided.",
             status_code=400
         )
-
+    if not gender:
+        return func.HttpResponse(
+            "Gender is not provided.",
+            status_code=400
+        )
+    else:
+        response = validateGender(gender)
+        if response is not None:
+            return response
     return registerUser(email, firstName, lastName, dateOfBirth, education, address, password)
             
                 
-
+def validateGender(gender):
+    if (gender != 'Male' or gender != 'Female' or gender != 'Other' or gender != 'Prefer not to say' or gender == ''):
+        return func.HttpResponse(
+            "Please select a gender.",
+            status_code=400
+        )
+    else:
+        return None
+    
 
 def validateEmail(email):
 
