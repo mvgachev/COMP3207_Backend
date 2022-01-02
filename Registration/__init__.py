@@ -127,25 +127,40 @@ def validateEmail(email):
     return None
 
 def validatePassword(password):
-
+    errorCode = -1
+    responsemsg = [
+        "Password is less than 8 characters",
+        "Password must contain lower-case letters",
+        "Password must contain uppercase letters",
+        "Password must contain a number",
+        "Password must contain a symbol",
+        "Password must not contain whitespaces"
+        ]
     isValid = True
 
     if (len(password) < 8):
         isValid = False
+        errorCode = 0
     elif (not re.search("[a-z]", password)):
         isValid = False
+        errorCode = 1
     elif not re.search("[A-Z]", password):
-        isValid = False		
+        isValid = False	
+        errorCode = 2
     elif not re.search("[0-9]", password):
-        isValid = False		
+        isValid = False	
+        errorCode = 3	
     elif not re.search("[_@$]", password):
         isValid = False
+        errorCode = 4
     elif re.search("\s", password):
         isValid = False
+        errorCode = 5
     
     if not isValid:
+        errMsg = "Invalid Password - {}".format(responsemsg[errorCode])
         return func.HttpResponse(
-            "Invalid password.",
+            errMsg,
             status_code=400
         )
 
