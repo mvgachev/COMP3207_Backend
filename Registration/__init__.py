@@ -58,7 +58,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
     else:
-        response = validateName(firstName)
+        response = validateName(firstName, "first")
         if response is not None:
             return response
     if not lastName:
@@ -67,7 +67,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
     else:
-        response = validateName(lastName)
+        response = validateName(lastName, "last")
         if response is not None:
             return response
     if not dateOfBirth:
@@ -166,12 +166,13 @@ def validatePassword(password):
 
     return None
 
-def validateName(name):
+def validateName(name, str):
     regex = r'[a-zA-Z]{2,}'
 
     if(not (re.fullmatch(regex, name))):
+        resp = "Invalid {} name".format(name)
         return func.HttpResponse(
-            "Invalid first name.",
+            resp,
             status_code=400
         )
 
