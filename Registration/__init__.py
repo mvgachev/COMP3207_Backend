@@ -169,8 +169,8 @@ def validatePassword(password):
 def validateName(name, str):
     regex = r'[a-zA-Z]{2,}'
 
-    if(not (re.fullmatch(regex, name))):
-        resp = "Invalid {} name".format(name)
+    if(not (re.fullmatch(regex, str))):
+        resp = "Invalid {} name".format(str)
         return func.HttpResponse(
             resp,
             status_code=400
