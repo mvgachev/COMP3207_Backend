@@ -95,11 +95,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         response = validateGender(gender)
         if response is not None:
             return response
-    return registerUser(email, firstName, lastName, dateOfBirth, education, address, password)
+    return registerUser(email, firstName, lastName, dateOfBirth, education, address, password, gender)
             
                 
 def validateGender(gender):
-    if (gender != 'Male' or gender != 'Female' or gender != 'Other' or gender != 'Prefer not to say' or gender == ''):
+    if (gender != 'Male' and gender != 'Female' and gender != 'Other' and gender != 'Prefer not to say' and gender == ''):
         return func.HttpResponse(
             "Please select a valid gender.",
             status_code=400

@@ -32,7 +32,7 @@ def searchCvByJobTitle(jobTitle):
     for r in results:
         logging.info(type(r))
         logging.info(r)
-        r['cvFile'] = r['cvFile'].decode("utf-8")
+        r['cvFile'] = r['cvFile'].decode("latin-1")
         logging.info(r)
     
     cursor.commit()

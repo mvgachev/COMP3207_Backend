@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "2a86fe4b-7ce4-45e7-8201-6b31124e722f",
+		"name": "Group Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Cloud",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"mg5u19\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cvlibrary.azurewebsites.net/user/login",
+					"protocol": "https",
+					"host": [
+						"cvlibrary",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Local",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Local",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"ValidPassword123@\",\r\n    \"firstName\": \"Metodi\",\r\n    \"lastName\": \"Gachev\",\r\n    \"dateOfBirth\": \"2000-01-28\",\r\n    \"education\": \"ECS\",\r\n    \"address\": \"London\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Cloud",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"ValidPassword123@\",\r\n    \"firstName\": \"Metodi\",\r\n    \"lastName\": \"Gachev\",\r\n    \"dateOfBirth\": \"2000-01-28\",\r\n    \"education\": \"ECS\",\r\n    \"address\": \"London\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://cvlibrary.azurewebsites.net/api/user/login?email=mg5u19&password=123456",
+					"protocol": "https",
+					"host": [
+						"cvlibrary",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "mg5u19"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload CV Local",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "jobTitle",
+							"value": "Software Engineer",
+							"type": "text"
+						},
+						{
+							"key": "jobOffers",
+							"value": "Skype",
+							"type": "text"
+						},
+						{
+							"key": "cvFile",
+							"type": "file",
+							"src": "/C:/Users/Home/Desktop/Cloud Technologies/Group Project/CVs/CV.pdf"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/cv/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"cv",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload CV Cloud",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "userId",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "jobTitle",
+							"value": "Software Engineer",
+							"type": "text"
+						},
+						{
+							"key": "jobOffers",
+							"value": "Skype",
+							"type": "text"
+						},
+						{
+							"key": "cvFile",
+							"type": "file",
+							"src": "/C:/Users/Home/Desktop/Cloud Technologies/Group Project/CVs/CV.pdf"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/cv/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"cv",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search CV by Job TItle Cloud",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
