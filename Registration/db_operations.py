@@ -30,10 +30,10 @@ def checkIfEmailExists(email: str):
     else:
         return True
 
-def registerUser(email: str, firstName: str, lastName: str, dateOfBirth: str, education: str, address: str, password: str):
+def registerUser(email: str, firstName: str, lastName: str, dateOfBirth: str, education: str, address: str, password: str, gender: str):
     cursor = connectToDatabase()
-    cursor.execute('INSERT INTO Users (email, firstName, lastName, dateOfBirth, education, address) VALUES(?,?,?,?,?,?)'
-    , (email, firstName, lastName, dateOfBirth, education, address))
+    cursor.execute('INSERT INTO Users (email, firstName, lastName, dateOfBirth, education, address, gender) VALUES(?,?,?,?,?,?,?)'
+    , (email, firstName, lastName, dateOfBirth, education, address,gender))
     cursor.connection.commit()
     if cursor.rowcount != 1:
         return func.HttpResponse(

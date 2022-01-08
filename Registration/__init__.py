@@ -14,8 +14,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     dateOfBirth = req.params.get('dateOfBirth')
     education = req.params.get('education')
     address = req.params.get('address')
+    gender = req.params.get('gender')
 
-    if not (email and password and firstName and lastName and dateOfBirth and education and address):
+    if not (email and password and firstName and lastName and dateOfBirth and education and address and gender):
         try:
             req_body = req.get_json()
         except ValueError:
@@ -31,6 +32,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             dateOfBirth = req_body.get('dateOfBirth')
             education = req_body.get('education')
             address = req_body.get('address')
+            gender = req_body.get('gender')
 
     if not email:
         return func.HttpResponse(
@@ -56,7 +58,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
     else:
-        response = validateName(firstName)
+        response = validateName(firstName, "first")
         if response is not None:
             return response
     if not lastName:
@@ -65,7 +67,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
     else:
-        response = validateName(lastName)
+        response = validateName(lastName, "last")
         if response is not None:
             return response
     if not dateOfBirth:
@@ -84,11 +86,27 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             "Address is not provided.",
             status_code=400
         )
-
+    if not gender:
+        return func.HttpResponse(
+            "Gender is not provided.",
+            status_code=400
+        )
+    else:
+        response = validateGender(gender)
+        if response is not None:
+            return response
     return registerUser(email, firstName, lastName, dateOfBirth, education, address, password)
             
                 
-
+def validateGender(gender):
+    if (gender != 'Male' or gender != 'Female' or gender != 'Other' or gender != 'Prefer not to say' or gender == ''):
+        return func.HttpResponse(
+            "Please select a valid gender.",
+            status_code=400
+        )
+    else:
+        return None
+    
 
 def validateEmail(email):
 
@@ -109,36 +127,52 @@ def validateEmail(email):
     return None
 
 def validatePassword(password):
-
+    errorCode = -1
+    responsemsg = [
+        "Password is less than 8 characters",
+        "Password must contain lower-case letters",
+        "Password must contain uppercase letters",
+        "Password must contain a number",
+        "Password must contain a symbol",
+        "Password must not contain whitespaces"
+        ]
     isValid = True
 
     if (len(password) < 8):
         isValid = False
+        errorCode = 0
     elif (not re.search("[a-z]", password)):
         isValid = False
+        errorCode = 1
     elif not re.search("[A-Z]", password):
-        isValid = False		
+        isValid = False	
+        errorCode = 2
     elif not re.search("[0-9]", password):
-        isValid = False		
+        isValid = False	
+        errorCode = 3	
     elif not re.search("[_@$]", password):
         isValid = False
+        errorCode = 4
     elif re.search("\s", password):
         isValid = False
+        errorCode = 5
     
     if not isValid:
+        errMsg = "Invalid Password - {}".format(responsemsg[errorCode])
         return func.HttpResponse(
-            "Invalid password.",
+            errMsg,
             status_code=400
         )
 
     return None
 
-def validateName(name):
+def validateName(name, str):
     regex = r'[a-zA-Z]{2,}'
 
-    if(not (re.fullmatch(regex, name))):
+    if(not (re.fullmatch(regex, str))):
+        resp = "Invalid {} name".format(str)
         return func.HttpResponse(
-            "Invalid first name.",
+            resp,
             status_code=400
         )
 
