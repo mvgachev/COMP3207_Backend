@@ -75,7 +75,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             "Date of birth is not provided.",
             status_code=400
         )
-    ##TODO Validate date
+    else:
+        response = validateDate(dateOfBirth)
+        if response is not None:
+            return response
+        
     if not education:
         return func.HttpResponse(
             "Education is not provided.",
@@ -97,6 +101,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             return response
     return registerUser(email, firstName, lastName, dateOfBirth, education, address, password, gender)
             
+def validateDate(date):
+	try:
+		datetime.datetime.strptime(date, "%Y-%m-%d")
+		return None
+	except ValueError:
+		return func.HttpResponse(
+            "Please select a valid date of birth.",
+            status_code=400
+        )
                 
 def validateGender(gender):
     if (gender != 'Male' and gender != 'Female' and gender != 'Other' and gender != 'Prefer not to say' and gender == ''):
