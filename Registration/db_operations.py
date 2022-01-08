@@ -37,7 +37,7 @@ def registerUser(email: str, firstName: str, lastName: str, dateOfBirth: str, ed
     cursor.connection.commit()
     if cursor.rowcount != 1:
         return func.HttpResponse(
-            "Something was wrong with the registration request. Please try again!",
+            "Something went wrong with the registration request. Please try again!",
             status_code=400
         )  
     
