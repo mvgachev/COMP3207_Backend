@@ -16,7 +16,7 @@ def connectToDatabase():
     return cursor
 
 
-def searchCvBycvId(cvId):
+def searchCvByCvId(cvId):
     cursor = connectToDatabase()
     query = "SELECT * FROM Cvs WHERE cvId = ?"
     cursor.execute(query,cvId)
@@ -30,13 +30,10 @@ def searchCvBycvId(cvId):
         results.append(dict(zip(columns,r)))
     
     for r in results:
-        logging.info(type(r))
-        logging.info(r)
-        r['cvFile'] = r['cvFile'].decode("utf-8")
-        logging.info(r)
+        r['cvFile'] = r['cvFile'].decode("latin-1")
     
     cursor.commit()
     cursor.close()
-    return results 
+    return results[0]
 
 

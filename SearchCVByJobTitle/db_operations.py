@@ -18,22 +18,16 @@ def connectToDatabase():
 
 def searchCvByJobTitle(jobTitle):
     cursor = connectToDatabase()
-    query = "SELECT * FROM Cvs WHERE jobTitle = ?"
+    query = "SELECT cvId, userId, jobTitle, jobOffers FROM Cvs WHERE jobTitle = ?"
     cursor.execute(query,jobTitle)
     
     sql_res = cursor.fetchall()
-    columns = ['cvId','userId','jobTitle','jobOffers','cvFile']
+    columns = ['cvId','userId','jobTitle','jobOffers']
     results = []
-    logging.info(type(results))
 
     for r in sql_res:
         results.append(dict(zip(columns,r)))
     
-    for r in results:
-        logging.info(type(r))
-        logging.info(r)
-        r['cvFile'] = r['cvFile'].decode("latin-1")
-        logging.info(r)
     
     cursor.commit()
     cursor.close()
