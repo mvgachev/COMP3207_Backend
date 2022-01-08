@@ -99,7 +99,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             
                 
 def validateGender(gender):
-    if (gender != 'Male' or gender != 'Female' or gender != 'Other' or gender != 'Prefer not to say' or gender == ''):
+    if (gender != 'Male' and gender != 'Female' and gender != 'Other' and gender != 'Prefer not to say'):
         return func.HttpResponse(
             "Please select a valid gender.",
             status_code=400
