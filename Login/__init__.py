@@ -1,9 +1,10 @@
+import json
 import logging
 
 import azure.functions as func
 from Login.db_operations import checkIfPasswordMatch
 
-from Registration.db_operations import checkIfEmailExists
+from Registration.db_operations import checkIfEmailExists, getUserId
 import logging
 
 
@@ -62,8 +63,13 @@ def checkPassword(password, email):
             status_code=401
         )
     else:
+        userId = getUserId(email)
+        response = {
+            "msg": "You have logged in successfully",
+            "userId": userId
+        }
         return func.HttpResponse(
-            "You have logged in successfully",
+            json.dumps(response),
             status_code=200
         )                
 

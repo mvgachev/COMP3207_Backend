@@ -1,6 +1,8 @@
+import json
 import pyodbc
 import logging
 import azure.functions as func
+
 
 
 def connectToDatabase():
@@ -20,7 +22,6 @@ def getUserWithEmail(email: str):
     cursor = connectToDatabase()
     cursor.execute('SELECT * FROM Users WHERE email = ?', email)
     user = cursor.fetchone()
-    
     return user
 
 def checkIfEmailExists(email: str):
@@ -47,8 +48,12 @@ def registerUser(email: str, firstName: str, lastName: str, dateOfBirth: str, ed
     cursor.connection.commit()
 
     if cursor.rowcount == 1:
+        response = {
+            "msg": "You have logged in successfully",
+            "userId": userId
+        }
         return func.HttpResponse(
-            "Registration was successful.",
+            json.dumps(response),
             status_code=200
         )
     else:
@@ -57,10 +62,15 @@ def registerUser(email: str, firstName: str, lastName: str, dateOfBirth: str, ed
             status_code=400
         )      
 
+# def getUserId(email):
+#     cursor = connectToDatabase()
+#     cursor.execute('SELECT * FROM Users WHERE email = ?', email)
+#     user = cursor.fetchone()
+#     logging.info(email)
+#     logging.info(user)
+#     return user[0]
+
 def getUserId(email):
-    cursor = connectToDatabase()
-    cursor.execute('SELECT * FROM Users WHERE email = ?', email)
-    user = cursor.fetchone()
-    logging.info(email)
-    logging.info(user)
-    return user[0]
+    user = getUserWithEmail(email)
+    userId = user[0]
+    return userId
