@@ -15,9 +15,9 @@ def connectToDatabase():
     cursor = connection.cursor()
     return cursor
 
-def fetchFirstKCvs(k):
+def fetchFirstKCvs(k,n):
     cursor = connectToDatabase()
-    query = "SELECT TOP({}) cvId, userId, jobTitle, jobOffers FROM Cvs".format(k)
+    query = "SELECT cvId, userId, jobTitle, jobOffers FROM Cvs ORDER BY cvId OFFSET {} ROWS FETCH NEXT {} ROWS ONLY".format((k-1),n)
     cursor.execute(query)
     
     sql_res = cursor.fetchall()
